@@ -1,0 +1,26 @@
+(self.webpackChunk_N_E=self.webpackChunk_N_E||[]).push([[614],{2828:function(e,t,i){Promise.resolve().then(i.bind(i,910))},910:function(e,t,i){"use strict";i.r(t),i.d(t,{default:function(){return h}});var r=i(3827),n=i(3818),a=i(5462),s=i(43);/**
+ * @license lucide-react v0.321.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */let o=(0,i(7461).Z)("Zap",[["polygon",{points:"13 2 3 14 12 14 11 22 21 10 12 10 13 2",key:"45s27k"}]]);var l=i(438),c=i(3879),d=i(8792);function h(){let e=[{id:1,title:"Proximity Detection",description:"The Agent constantly scans for your specific Bluetooth beacon (Smartwatch or Phone).",icon:a.Z,color:"text-cyan-400",bg:"bg-cyan-950/30"},{id:2,title:"Context Analysis",description:"When a call comes in, ProxiCall checks your status: Are you driving? In a meeting? Sleeping?",icon:s.Z,color:"text-indigo-400",bg:"bg-indigo-950/30"},{id:3,title:"Gemini Decision",description:"Google's Gemini 3 analyzes the caller ID and your context to decide the best action.",icon:o,color:"text-amber-400",bg:"bg-amber-950/30"},{id:4,title:"Autonomous Action",description:"The Agent either auto-replies via SMS, whispers a summary to your ear, or lets the call ring.",icon:l.Z,color:"text-emerald-400",bg:"bg-emerald-950/30"}];return(0,r.jsxs)("div",{className:"min-h-screen bg-black text-white font-sans selection:bg-cyan-500/30",children:[(0,r.jsx)("div",{className:"fixed inset-0 bg-[radial-gradient(circle_at_top,_var(--tw-gradient-stops))] from-slate-900 via-black to-black -z-20"}),(0,r.jsxs)("header",{className:"p-6 flex items-center justify-between border-b border-white/10 backdrop-blur-md sticky top-0 z-50",children:[(0,r.jsx)(d.default,{href:"/",children:(0,r.jsxs)("button",{className:"flex items-center gap-2 text-slate-400 hover:text-white transition-colors",children:[(0,r.jsx)(c.Z,{size:20}),(0,r.jsx)("span",{className:"font-bold tracking-wide",children:"Back to Home"})]})}),(0,r.jsx)("div",{className:"text-xl font-bold bg-gradient-to-r from-cyan-400 to-indigo-500 bg-clip-text text-transparent",children:"How ProxiCall Works"})]}),(0,r.jsxs)("main",{className:"max-w-4xl mx-auto px-6 py-20",children:[(0,r.jsx)("div",{className:"relative border-l-2 border-slate-800 ml-4 md:ml-10 space-y-20",children:e.map((e,t)=>(0,r.jsxs)(n.E.div,{initial:{opacity:0,x:-50},whileInView:{opacity:1,x:0},viewport:{once:!0},transition:{delay:.2*t},className:"relative pl-12 md:pl-20",children:[(0,r.jsx)("div",{className:"absolute -left-[9px] top-0 w-5 h-5 rounded-full border-4 border-black ".concat(e.color.replace("text","bg")," shadow-[0_0_20px_currentColor]")}),(0,r.jsxs)("div",{className:"bg-white/5 border border-white/10 p-8 rounded-3xl hover:bg-white/10 transition-colors group",children:[(0,r.jsx)("div",{className:"w-16 h-16 rounded-2xl ".concat(e.bg," flex items-center justify-center mb-6"),children:(0,r.jsx)(e.icon,{size:32,className:e.color})}),(0,r.jsxs)("h3",{className:"text-3xl font-bold text-white mb-4 flex items-center gap-4",children:[(0,r.jsxs)("span",{className:"opacity-20 text-4xl",children:["0",e.id]}),e.title]}),(0,r.jsx)("p",{className:"text-slate-400 text-lg leading-relaxed",children:e.description})]})]},e.id))}),(0,r.jsx)("div",{className:"mt-20 text-center",children:(0,r.jsx)(d.default,{href:"/dashboard",children:(0,r.jsx)("button",{className:"px-12 py-4 bg-white text-black font-bold rounded-full hover:scale-105 hover:shadow-[0_0_40px_rgba(255,255,255,0.3)] transition-all",children:"Start the Agent"})})})]})]})}},3879:function(e,t,i){"use strict";i.d(t,{Z:function(){return r}});/**
+ * @license lucide-react v0.321.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */let r=(0,i(7461).Z)("ArrowLeft",[["path",{d:"m12 19-7-7 7-7",key:"1l729n"}],["path",{d:"M19 12H5",key:"x3x0zl"}]])},438:function(e,t,i){"use strict";i.d(t,{Z:function(){return r}});/**
+ * @license lucide-react v0.321.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */let r=(0,i(7461).Z)("MessageSquare",[["path",{d:"M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z",key:"1lielz"}]])},5462:function(e,t,i){"use strict";i.d(t,{Z:function(){return r}});/**
+ * @license lucide-react v0.321.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */let r=(0,i(7461).Z)("Radio",[["path",{d:"M4.9 19.1C1 15.2 1 8.8 4.9 4.9",key:"1vaf9d"}],["path",{d:"M7.8 16.2c-2.3-2.3-2.3-6.1 0-8.5",key:"u1ii0m"}],["circle",{cx:"12",cy:"12",r:"2",key:"1c9p78"}],["path",{d:"M16.2 7.8c2.3 2.3 2.3 6.1 0 8.5",key:"1j5fej"}],["path",{d:"M19.1 4.9C23 8.8 23 15.1 19.1 19",key:"10b0cb"}]])},43:function(e,t,i){"use strict";i.d(t,{Z:function(){return r}});/**
+ * @license lucide-react v0.321.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */let r=(0,i(7461).Z)("Smartphone",[["rect",{width:"14",height:"20",x:"5",y:"2",rx:"2",ry:"2",key:"1yt0o3"}],["path",{d:"M12 18h.01",key:"mhygvu"}]])}},function(e){e.O(0,[807,818,971,69,744],function(){return e(e.s=2828)}),_N_E=e.O()}]);

@@ -22,6 +22,8 @@ dist/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+*.log
+*.hprof
 
 # Android
 .gradle/
@@ -41,6 +43,8 @@ output.json
 .env.development.local
 .env.test.local
 .env.production.local
+google-services.json
+key.properties
 
 # TypeScript
 *.tsbuildinfo

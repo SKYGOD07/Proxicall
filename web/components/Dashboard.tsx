@@ -2,21 +2,36 @@
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Activity, Radio, Mic, Phone, CheckCircle2, AlertTriangle, ArrowLeft } from 'lucide-react';
+import { Activity, Radio, Mic, Phone, ArrowLeft, Smartphone } from 'lucide-react';
 import Link from 'next/link';
-import RadarAnimation from './RadarAnimation';
+import { useAuth } from './AuthProvider';
+import { useRouter } from 'next/navigation';
 import LoadingScreen from './LoadingScreen';
-import ConnectionBreadcrumb from './ConnectionBreadcrumb';
 import BluetoothControl from './dashboard/BluetoothControl';
 import DeviceManager from './dashboard/DeviceManager';
 import CallLogs from './dashboard/CallLogs';
 import AIVerification from './dashboard/AIVerification';
 import ContactManager from './dashboard/ContactManager';
-import { Smartphone } from 'lucide-react';
 
 export default function Dashboard() {
+    const { user, logout, loading } = useAuth();
+    const router = useRouter();
     const [isLoading, setIsLoading] = useState(true);
     const [activeTab, setActiveTab] = useState<'bluetooth' | 'devices' | 'logs' | 'ai' | 'contacts'>('bluetooth');
+
+    useEffect(() => {
+        if (!loading && !user) {
+            router.push('/login');
+        }
+    }, [user, loading, router]);
+
+    if (loading) return (
+        <div className="flex items-center justify-center min-h-screen bg-black text-white">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-cyan-400"></div>
+        </div>
+    );
+
+    if (!user) return null;
 
     const navItems = [
         { id: 'bluetooth', label: 'Connection', icon: Radio },
@@ -70,9 +85,23 @@ export default function Dashboard() {
                     ))}
                 </nav>
 
-                <div className="flex items-center gap-2 text-xs font-mono text-slate-500">
-                    <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                    <span className="hidden sm:inline">ONLINE</span>
+                <div className="flex items-center gap-4">
+                    <div className="flex items-center gap-2 text-xs font-mono text-slate-500 hidden sm:flex">
+                        <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                        <span>ONLINE</span>
+                    </div>
+
+                    <div className="flex items-center gap-3 pl-4 border-l border-white/10">
+                        {user.photoURL && (
+                            <img src={user.photoURL} alt="User" className="w-8 h-8 rounded-full border border-white/20" />
+                        )}
+                        <button
+                            onClick={logout}
+                            className="text-xs text-red-400 hover:text-red-300 transition-colors font-semibold"
+                        >
+                            Sign Out
+                        </button>
+                    </div>
                 </div>
             </header>
 
