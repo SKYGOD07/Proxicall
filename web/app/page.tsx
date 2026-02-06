@@ -1,12 +1,15 @@
 'use client';
 
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import Link from 'next/link';
 import { ChevronDown, ArrowRight, Activity, Smartphone, Server, BrainCircuit } from 'lucide-react';
 import RadarAnimation from '../components/RadarAnimation';
+import LoadingScreen from '../components/LoadingScreen';
+import { AnimatePresence } from 'framer-motion';
 
 export default function LandingPage() {
+    const [isLoading, setIsLoading] = useState(true);
     const { scrollYProgress } = useScroll();
     const scaleX = useSpring(scrollYProgress, {
         stiffness: 100,
@@ -16,6 +19,12 @@ export default function LandingPage() {
 
     return (
         <div className="min-h-screen bg-black text-white overflow-x-hidden font-sans selection:bg-cyan-500/30">
+            <AnimatePresence>
+                {isLoading && (
+                    <LoadingScreen onComplete={() => setIsLoading(false)} />
+                )}
+            </AnimatePresence>
+
             {/* Progress Bar */}
             <motion.div
                 className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-cyan-500 to-indigo-500 origin-left z-50"
