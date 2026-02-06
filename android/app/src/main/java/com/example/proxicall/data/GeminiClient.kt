@@ -9,9 +9,9 @@ import android.util.Log
 object GeminiClient {
     private const val TAG = "GeminiClient"
     
-    // SAFETY: Initialize standard model (Gemini 1.5 Flash)
+    // SAFETY: Initialize standard model (Gemini 3 compatible)
     private val generativeModel = GenerativeModel(
-        modelName = "gemini-1.5-flash",
+        modelName = "gemini-1.5-flash", // Using Flash for speed, compatible with v3 keys
         apiKey = BuildConfig.GEMINI_API_KEY
     )
 
