@@ -37,9 +37,9 @@ export default function LandingPage() {
                     <Activity className="text-cyan-400" />
                     <span className="font-bold tracking-wider">PROXICALL</span>
                 </div>
-                <div className="flex gap-4 text-sm font-medium text-slate-300">
-                    <span className="cursor-pointer hover:text-white transition-colors">How it Works</span>
-                    <span className="cursor-pointer hover:text-white transition-colors">Features</span>
+                <div className="flex gap-6 text-sm font-medium text-slate-300">
+                    <Link href="/how-it-works" className="cursor-pointer hover:text-cyan-400 transition-colors">How it Works</Link>
+                    <Link href="/features" className="cursor-pointer hover:text-cyan-400 transition-colors">Features</Link>
                 </div>
                 <Link href="/dashboard">
                     <button className="bg-white/10 hover:bg-white/20 border border-white/10 backdrop-blur-md px-6 py-2 rounded-full text-sm font-semibold transition-all hover:scale-105 active:scale-95 flex items-center gap-2">
@@ -66,7 +66,7 @@ export default function LandingPage() {
                         <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-indigo-500">Autonomous Agent</span>
                     </h1>
                     <p className="text-lg md:text-xl text-slate-400 mb-10 max-w-2xl mx-auto leading-relaxed">
-                        ProxiCall fuses Google Gemini's reasoning with real-time phone status to handle your communication autonomously.
+                        ProxiCall fuses Google Gemini 3's reasoning with real-time phone status to handle your communication autonomously.
                     </p>
 
                     <div className="flex flex-col md:flex-row gap-4 justify-center items-center">
@@ -79,9 +79,11 @@ export default function LandingPage() {
                                 Initialize Agent
                             </motion.button>
                         </Link>
-                        <button className="px-8 py-4 bg-slate-900 rounded-full font-semibold border border-slate-800 hover:bg-slate-800 transition-colors">
-                            View Documentation
-                        </button>
+                        <Link href="/docs">
+                            <button className="px-8 py-4 bg-slate-900 rounded-full font-semibold border border-slate-800 hover:bg-slate-800 transition-colors">
+                                View Documentation
+                            </button>
+                        </Link>
                     </div>
                 </motion.div>
 
@@ -115,7 +117,7 @@ export default function LandingPage() {
                             Launch Dashboard
                         </button>
                     </Link>
-                    <p className="mt-8 text-slate-600 text-sm">© 2026 ProxiCall • Powered by Google Gemini</p>
+                    <p className="mt-8 text-slate-600 text-sm">© 2026 ProxiCall • Powered by Google Gemini 3</p>
                 </div>
             </footer>
         </div>
