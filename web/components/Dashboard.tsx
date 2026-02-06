@@ -65,8 +65,14 @@ export default function Dashboard() {
 
             <main className="max-w-6xl mx-auto">
                 {/* Breadcrumb Section */}
-                <div className="mb-12">
+                <div className="mb-12 text-center">
                     <ConnectionBreadcrumb status={getBreadcrumbStatus()} />
+                    <p className="text-slate-500 text-sm mt-4 max-w-lg mx-auto bg-slate-900/50 py-2 px-4 rounded-full border border-slate-800">
+                        {isConnected ?
+                            "System Ready. Waiting for incoming calls..." :
+                            "Action Required: Enable Bluetooth on your Android device and pair with the Agent."
+                        }
+                    </p>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
