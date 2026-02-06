@@ -37,7 +37,12 @@ fun Dashboard() {
         ActivityItem(3, "connect", "Reconnected to Pixel 8 Pro", "1h ago")
     )
 
-    Scaffold(
+    var isLoading by remember { mutableStateOf(true) }
+
+    if (isLoading) {
+        LoadingScreen(onComplete = { isLoading = false })
+    } else {
+        Scaffold(
         topBar = {
             TopAppBar(
                 title = { 

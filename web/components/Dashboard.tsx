@@ -1,11 +1,13 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Activity, Radio, Mic, Phone, CheckCircle2, AlertTriangle } from 'lucide-react';
 import RadarAnimation from './RadarAnimation';
+import LoadingScreen from './LoadingScreen';
 
 export default function Dashboard() {
+    const [isLoading, setIsLoading] = useState(true);
     const [isConnected, setIsConnected] = useState(true);
     const [autoReplyEnabled, setAutoReplyEnabled] = useState(true);
     const [whisperEnabled, setWhisperEnabled] = useState(false);
@@ -19,6 +21,12 @@ export default function Dashboard() {
 
     return (
         <div className="min-h-screen bg-black text-slate-200 p-6 font-sans">
+            <AnimatePresence>
+                {isLoading && (
+                    <LoadingScreen onComplete={() => setIsLoading(false)} />
+                )}
+            </AnimatePresence>
+
             {/* Header */}
             <header className="flex items-center justify-between mb-8 border-b border-slate-800 pb-4">
                 <h1 className="text-2xl font-bold bg-gradient-to-r from-cyan-400 to-indigo-500 bg-clip-text text-transparent flex items-center gap-2">
