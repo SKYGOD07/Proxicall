@@ -10,6 +10,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import com.example.proxicall.ui.Dashboard
+import com.example.proxicall.ui.InfoScreen
 // import com.example.proxicall.ui.theme.ProxiCallTheme // Assuming Theme exists, if not usage MaterialTheme directly
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.rememberMultiplePermissionsState
@@ -40,7 +41,13 @@ class MainActivity : ComponentActivity() {
                         permissionsState.launchMultiplePermissionRequest()
                     }
 
-                    Dashboard()
+                    var currentScreen by remember { mutableStateOf("dashboard") }
+
+                    if (currentScreen == "dashboard") {
+                        Dashboard(onInfoClick = { currentScreen = "info" })
+                    } else {
+                        InfoScreen(onBack = { currentScreen = "dashboard" })
+                    }
                 }
             }
         }

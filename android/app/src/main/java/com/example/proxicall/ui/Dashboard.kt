@@ -26,7 +26,7 @@ data class ActivityItem(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Dashboard() {
+fun Dashboard(onInfoClick: () -> Unit) {
     var isConnected by remember { mutableStateOf(true) }
     var autoReplyEnabled by remember { mutableStateOf(true) }
     var whisperEnabled by remember { mutableStateOf(false) }
@@ -54,6 +54,15 @@ fun Dashboard() {
                         )
                         Spacer(modifier = Modifier.width(8.dp))
                         Text("ProxiCall Agent Active", color = Color.White)
+                    }
+                },
+                actions = {
+                    IconButton(onClick = onInfoClick) {
+                        Icon(
+                            imageVector = Icons.Default.Info,
+                            contentDescription = "Info",
+                            tint = Color.Gray
+                        )
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
