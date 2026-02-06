@@ -20,26 +20,28 @@ object AgentWorkflow {
         val relationship = GeminiClient.classifyCaller(callerName)
         Log.i(TAG, "Relationship: $relationship")
 
-        // 3. Check Proximity (Mocked for now as we integrating BLE later)
-        val isUserNear = checkProximity() 
-        
+        // 3. Check Proximity
+        val proximityManager = com.example.proxicall.logic.ProximityManager(context)
+        // For demo purposes, we can hardcode a device address or check if ANY device is connected
+        // "00:00:00:00:00:00" is a placeholder. In reality, we'd store the user's watch address.
+        val isUserNear = proximityManager.isDeviceNear("00:00:00:00:00:00") 
+        Log.i(TAG, "User Proximity: ${if (isUserNear) "NEAR" else "AWAY"}")
+
         if (!isUserNear) {
             // Case A: Away Mode -> Auto-Reply
-            Log.i(TAG, "User matches AWAY profile. Sending Auto-SMS.")
+            Log.i(TAG, "Case A: Away Mode Activated due to weak signal/no connection.")
             val reply = GeminiClient.generateReply(callerName, relationship, "I am away from my phone.")
             sendSMS(number, reply)
         } else {
             // Case B: Busy Mode (Near but not answering)
-            // Implementation Trigger: This would typically wait 15s. 
-            // For MVP, we'll log this path.
-            Log.i(TAG, "User is NEAR. Waiting for 'Whisper' trigger...")
+            // Trigger Whisper Interaction immediately for demo (skipping 15s delay)
+            Log.i(TAG, "Case B: Busy Mode Activated. Triggering Whisper Agent.")
+            startWhisperInteraction(context, callerName)
         }
     }
 
     private fun checkProximity(): Boolean {
-        // TODO: Hook into ProximityManager (BLE RSSI)
-        // Returning FALSE to simulate "Away Mode" for the demo first
-        return false 
+        return false // Deprecated, using ProximityManager directly
     }
 
     private fun resolveContactName(context: Context, number: String): String? {

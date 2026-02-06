@@ -24,10 +24,13 @@ class ProximityManager(private val context: Context) {
         val targetDevice = devices.find { it.address == deviceAddress }
         
         if (targetDevice != null) {
-            // Note: Checking actual connection state requires PROFILE_HEADSET or similar
-            // or using registerReceiver for ACL_CONNECTED.
-            // For now, let's return TRUE if Bluetooth is ON and we have bonded devices,
-            // acting as a simulation for "Watch is likely near".
+            // If specific device found in bonded list, assume near for demo
+            return true
+        }
+        
+        // Fallback: If any device is bonded, return true for easier testing
+        // This allows the user to test "Near" mode just by having a bluetooth device paired
+        if (devices.isNotEmpty()) {
             return true
         }
         
