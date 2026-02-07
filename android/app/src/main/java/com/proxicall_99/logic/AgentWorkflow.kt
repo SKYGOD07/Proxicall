@@ -4,6 +4,8 @@ import android.content.Context
 import android.telephony.SmsManager
 import android.util.Log
 import com.proxicall_99.data.GeminiClient
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 object AgentWorkflow {
     private const val TAG = "AgentWorkflow"
@@ -55,9 +57,29 @@ object AgentWorkflow {
             val smsManager = SmsManager.getDefault()
             smsManager.sendTextMessage(phoneNumber, null, message, null, null)
             Log.i(TAG, "SMS Sent to $phoneNumber: $message")
+            logActivity("SMS_SENT", phoneNumber, message)
         } catch (e: Exception) {
             Log.e(TAG, "Failed to send SMS", e)
         }
+    }
+
+    private fun logActivity(action: String, caller: String, response: String) {
+        val user = FirebaseAuth.getInstance().currentUser ?: return
+        val db = FirebaseFirestore.getInstance()
+        
+        val logEntry = hashMapOf(
+            "action" to action,
+            "caller" to caller,
+            "response" to response,
+            "timestamp" to System.currentTimeMillis()
+        )
+        
+        db.collection("users")
+            .document(user.uid)
+            .collection("activity_logs")
+            .add(logEntry)
+            .addOnSuccessListener { Log.d(TAG, "Activity logged: $action") }
+            .addOnFailureListener { e -> Log.e(TAG, "Failed to log activity", e) }
     }
     
     // --- Whisper Mode (TTS/STT) ---
