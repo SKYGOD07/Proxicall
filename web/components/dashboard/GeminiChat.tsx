@@ -4,7 +4,6 @@ import { useState, useRef, useEffect } from 'react';
 import { Send, Mic, MicOff, Battery, AlertTriangle, MessageSquare } from 'lucide-react';
 import { useAuth } from '../AuthProvider';
 import { useToast } from '../ToastProvider';
-import { GoogleGenerativeAI } from "@google/generative-ai";
 
 // Quick interface for chat messages
 interface Message {
@@ -21,8 +20,6 @@ export default function GeminiChat() {
     const [messages, setMessages] = useState<Message[]>([]);
     const [isLoading, setIsLoading] = useState(false);
     const [isListening, setIsListening] = useState(false);
-    const [apiKey, setApiKey] = useState('');
-    const [showKeyInput, setShowKeyInput] = useState(false);
 
     // Auto-scroll ref
     const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -35,19 +32,8 @@ export default function GeminiChat() {
         scrollToBottom();
     }, [messages]);
 
-    // Check for env key
-    const API_KEY = process.env.NEXT_PUBLIC_GEMINI_API_KEY || '';
-
-    useEffect(() => {
-        if (!API_KEY) {
-            // Optional: Show toast if key is missing in dev
-            console.warn("Gemini API Key missing in environment variables");
-        }
-        setApiKey(API_KEY);
-    }, []);
-
     const handleSend = async () => {
-        if (!input.trim() || !apiKey) return;
+        if (!input.trim()) return;
 
         const userMsg: Message = {
             id: Date.now().toString(),
@@ -60,12 +46,19 @@ export default function GeminiChat() {
         setIsLoading(true);
 
         try {
-            const genAI = new GoogleGenerativeAI(apiKey);
-            const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+            // Call our internal API route
+            const response = await fetch('/api/gemini', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ prompt: input })
+            });
 
-            const result = await model.generateContent(input);
-            const response = await result.response;
-            const text = response.text();
+            if (!response.ok) {
+                throw new Error('Failed to fetch response');
+            }
+
+            const data = await response.json();
+            const text = data.text;
 
             const aiMsg: Message = {
                 id: (Date.now() + 1).toString(),
@@ -83,7 +76,7 @@ export default function GeminiChat() {
             const errorMsg: Message = {
                 id: (Date.now() + 1).toString(),
                 role: 'model',
-                text: "I'm having trouble connecting to the neural network. Please check your API key.",
+                text: "I'm having trouble connecting to the neural network. Please try again.",
                 timestamp: new Date()
             };
             setMessages(prev => [...prev, errorMsg]);
