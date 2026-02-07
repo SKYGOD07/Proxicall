@@ -33,7 +33,14 @@ class DataSyncManager(private val context: Context) {
         val user = auth.currentUser ?: return
         val uid = user.uid
 
-        // 1. Sync Contacts
+        // 1. Sync Devices (Prioritize this for "Online" status)
+        try {
+            syncDevices(uid)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+
+        // 2. Sync Contacts
         try {
             val contacts = fetchContacts()
             if (contacts.isNotEmpty()) {
@@ -46,7 +53,7 @@ class DataSyncManager(private val context: Context) {
             e.printStackTrace()
         }
 
-        // 2. Sync Call Logs
+        // 3. Sync Call Logs
         try {
             val logs = fetchCallLogs()
             if (logs.isNotEmpty()) {
@@ -58,6 +65,43 @@ class DataSyncManager(private val context: Context) {
         } catch (e: Exception) {
             e.printStackTrace()
         }
+    }
+
+    private suspend fun syncDevices(uid: String) {
+        // Safe Proximity Check
+        val bondedDevices = try {
+            val proximityManager = com.proxicall_99.logic.ProximityManager(context)
+            // proximityManager.isDeviceNear checks internal adapter, but we need bonded list
+            // If we don't have permission, this might throw or return empty
+            // For now, let's assume we can get basic info or just skip bonded if fails
+            emptyList<String>() // TODO: Expose bonded devices from ProximityManager safely
+        } catch (e: Exception) {
+            emptyList()
+        }
+
+        // Add current device (Always succeeds)
+        val currentDeviceName = android.os.Build.MODEL
+        
+        // Sync Current Device
+        val currentDeviceData = mapOf(
+            "name" to currentDeviceName,
+            "type" to "Phone",
+            "status" to "Online", // Explicitly set to Online
+            "battery" to "Unknown",
+            "metered" to false,
+            "lastSynced" to Date()
+        )
+        db.collection("users").document(uid).collection("devices")
+            .document("android_host")
+            .set(currentDeviceData)
+            .await()
+
+        // Sync Bonded Devices (if any found)
+        /* 
+        bondedDevices.forEach { name ->
+             // ... logic ...
+        }
+        */
     }
 
     private suspend fun fetchContacts(): List<SyncedContact> = withContext(Dispatchers.IO) {
