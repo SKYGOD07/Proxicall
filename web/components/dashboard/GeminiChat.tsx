@@ -36,10 +36,13 @@ export default function GeminiChat() {
     }, [messages]);
 
     // Check for env key
-    // Hardcoded API Key as requested by user
-    const API_KEY = "AIzaSyDE9DQWihqJoN25jUVBLwBLLyAAwIVoYE0";
+    const API_KEY = process.env.NEXT_PUBLIC_GEMINI_API_KEY || '';
 
     useEffect(() => {
+        if (!API_KEY) {
+            // Optional: Show toast if key is missing in dev
+            console.warn("Gemini API Key missing in environment variables");
+        }
         setApiKey(API_KEY);
     }, []);
 
