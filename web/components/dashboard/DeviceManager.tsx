@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { Shield, Smartphone, Wifi, MoreVertical, Battery, Lock, Trash2, Plus } from 'lucide-react';
 import { useAuth } from '../AuthProvider';
 import { db } from '@/lib/firebase';
+import { useToast } from '../ToastProvider';
 import { collection, query, onSnapshot, addDoc, deleteDoc, doc, serverTimestamp } from 'firebase/firestore';
 
 interface Device {
@@ -17,6 +18,7 @@ interface Device {
 
 export default function DeviceManager() {
     const { user } = useAuth();
+    const { showToast } = useToast();
     const [devices, setDevices] = useState<Device[]>([]);
     const [isAdding, setIsAdding] = useState(false);
 
@@ -36,35 +38,17 @@ export default function DeviceManager() {
     }, [user]);
 
     const addDevice = async () => {
-        if (!user) return;
-        setIsAdding(true);
-        try {
-            // Simulator: Adding a random device for demo purposes
-            const types = ['Phone', 'Wearable', 'Laptop'];
-            const names = ['Pixel 9 Pro', 'Galaxy Watch 7', 'MacBook Air'];
-            const randomIdx = Math.floor(Math.random() * 3);
-
-            await addDoc(collection(db, `users/${user.uid}/devices`), {
-                name: names[randomIdx],
-                type: types[randomIdx],
-                status: 'Trusted',
-                battery: `${Math.floor(Math.random() * 100)}%`,
-                metered: Math.random() > 0.5,
-                createdAt: serverTimestamp()
-            });
-        } catch (error) {
-            console.error("Error adding device", error);
-        } finally {
-            setIsAdding(false);
-        }
+        showToast("To add a device, pair it with your Android phone via Bluetooth. It will sync automatically.", "info");
     };
 
     const removeDevice = async (id: string) => {
         if (!user) return;
         try {
             await deleteDoc(doc(db, `users/${user.uid}/devices`, id));
+            showToast("Device removed successfully", "success");
         } catch (error) {
             console.error("Error removing device", error);
+            showToast("Failed to remove device", "error");
         }
     };
 

@@ -28,7 +28,7 @@ fun LoginScreen(navController: NavController) {
     // Check if already signed in
     LaunchedEffect(key1 = Unit) {
         if (googleAuthClient.getSignedInUser() != null) {
-            navController.navigate(Screen.Landing.route) {
+            navController.navigate(Screen.Loading.route) {
                 popUpTo(Screen.Login.route) { inclusive = true }
             }
         }
@@ -54,7 +54,7 @@ fun LoginScreen(navController: NavController) {
                         "Signed in as ${signInResult.userData.username}",
                         Toast.LENGTH_LONG
                     ).show()
-                    navController.navigate(Screen.Landing.route) {
+                    navController.navigate(Screen.Loading.route) {
                         popUpTo(Screen.Login.route) { inclusive = true }
                     }
                 }

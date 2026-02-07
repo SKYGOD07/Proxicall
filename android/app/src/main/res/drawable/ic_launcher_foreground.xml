@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    
+    <!-- Dark background -->
+    <path
+        android:fillColor="#1A1A2E"
+        android:pathData="M0,0h108v108h-108z"/>
+    
+    <!-- Cyan accent line at top -->
+    <path
+        android:fillColor="#22D3EE"
+        android:pathData="M20,30h68v3h-68z"/>
+    
+    <!-- P -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M20,40h8v28h-8v-28zM28,40h10v4h-10v-4zM38,44v8h-4v-8h4zM28,52h10v4h-10v-4z"/>
+    
+    <!-- X symbol (simplified) -->
+    <path
+        android:fillColor="#22D3EE"
+        android:pathData="M42,40l6,14l-6,14h8l4-10l4,10h8l-6-14l6-14h-8l-4,10l-4-10z"/>
+    
+    <!-- C -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M72,40h16v4h-12v20h12v4h-16v-28z"/>
+    
+    <!-- Cyan accent line at bottom -->
+    <path
+        android:fillColor="#22D3EE"
+        android:pathData="M20,75h68v3h-68z"/>
+    
+</vector>

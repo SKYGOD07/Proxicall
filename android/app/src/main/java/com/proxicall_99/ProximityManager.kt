@@ -82,4 +82,14 @@ class ProximityManager(context: Context) {
     enum class ProximityState {
         NEAR, AWAY, UNKNOWN
     }
+
+    @SuppressLint("MissingPermission")
+    fun getBondedDevices(): List<String> {
+        val bondedDevices = mutableListOf<String>()
+        val devices = bluetoothAdapter?.bondedDevices
+        devices?.forEach { device ->
+            bondedDevices.add(device.name ?: "Unknown Device")
+        }
+        return bondedDevices
+    }
 }

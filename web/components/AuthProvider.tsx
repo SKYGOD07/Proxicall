@@ -33,6 +33,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const signInWithGoogle = async () => {
         try {
             const provider = new GoogleAuthProvider();
+            provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
             await signInWithPopup(auth, provider);
             router.push('/dashboard');
         } catch (error) {
